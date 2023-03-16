@@ -1,0 +1,20 @@
+version: '3'
+services:
+    media_fixup:
+      build: .
+      container_name: lucos_media_fixup
+      volumes:
+        - "media:/medlib/ceol srl"
+      environment:
+        - MEDIA_API
+        - MEDIA_DIRECTORY=/medlib/ceol srl
+        - MEDIA_PREFIX
+      image: lucas42/lucos_media_fixup
+
+volumes:
+  media:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: "addr=aurora,ro,nolock,hard,intr,retry=3"
+      device: ":/medlib/ceol srl"
