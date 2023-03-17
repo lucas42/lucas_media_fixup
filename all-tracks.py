@@ -26,14 +26,17 @@ for track in getAllTracks():
 
 	# Ignore any tracks which don't have a TITLE tag
 	if (('TITLE' not in filemetadata.tags) or (len(filemetadata.tags['TITLE']) == 0)):
-		print("No title found " + trackpath + " - Skipping")
 		continue
 
 	id3title = " & ".join(filemetadata.tags['TITLE'])
 
 	## If the id3 title is empty or the same as the api title, then no need to do an update
 	if (id3title == apititle):
-		print("ID3 title and API title match " + trackpath + " - Skipping")
 		continue
 
-	print(trackpath + "=>" + apititle +  "~~~~~" + id3title)
+	trackdata = {
+		"tags": {
+			"title": id3title,
+		},
+	}
+	print("Track ID:"+str(track['trackid'])+" -> "+str(trackdata))
