@@ -6,9 +6,7 @@ services:
       volumes:
         - "media:/medlib/ceol srl"
       environment:
-        - MEDIA_API
-        - MEDIA_DIRECTORY=/medlib/ceol srl
-        - MEDIA_PREFIX
+        - MEDIA_API=https://media-api.l42.eu
       image: lucas42/lucos_media_fixup
 
 volumes:
