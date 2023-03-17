@@ -1,6 +1,6 @@
 #! /usr/local/bin/python3
 import urllib.parse, taglib
-from media_api import getAllTracks
+from media_api import getAllTracks, updateTrack
 
 
 print ("\033[0mChecking media library for tracks whose title matches the filename...")
@@ -40,3 +40,4 @@ for track in getAllTracks():
 		},
 	}
 	print("Track ID:"+str(track['trackid']) + "; " + apititle + " -> " + id3title)
+	updateTrack(track['trackid'], trackdata)
