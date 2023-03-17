@@ -11,12 +11,18 @@ for track in getAllTracks():
 	filetitle = urllib.parse.unquote(filename).rpartition('.')[0]
 	if ('title' not in track['tags']):
 		track['tags']['title'] = None
+	apititle = track['tags']['title']
 
 	## Ignore any titles which have already been updated to not match the file name
-	if (track['tags']['title'] != filetitle):
+	if (apititle != filetitle):
 		continue
 
 	path = "/medlib/"+track['url'].partition('/medlib/')[2]
-	print(path + "=>" + track['tags']['title'] +  "~~~~~" + filetitle)
 	filemetadata = taglib.File(path)
-	print(filetitle + "====" + filemetadata.tags['TITLE'])
+	id3title = " & ".join(filemetadata.tags['TITLE'])
+
+	## If the id3 title is empty or the same as the api title, then no need to do an update
+	if ((not id3title) or (id3title == apititle)):
+		continue
+
+	print(path + "=>" + apititle +  "~~~~~" + id3title)
