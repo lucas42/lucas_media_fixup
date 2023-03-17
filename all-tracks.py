@@ -19,10 +19,15 @@ for track in getAllTracks():
 		continue
 
 	filemetadata = taglib.File(trackpath)
+
+	# Ignore any tracks which don't have a TITLE tag
+	if (('TITLE' not in filemetadata.tags) or (len(filemetadata.tags['TITLE']) == 0)):
+		continue
+
 	id3title = " & ".join(filemetadata.tags['TITLE'])
 
 	## If the id3 title is empty or the same as the api title, then no need to do an update
-	if ((not id3title) or (id3title == apititle)):
+	if (id3title == apititle):
 		continue
 
 	print(trackpath + "=>" + apititle +  "~~~~~" + id3title)
