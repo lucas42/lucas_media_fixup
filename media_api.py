@@ -41,6 +41,6 @@ class getAllTracks:
 def updateTrack(trackid, data):
 	trackresult = requests.patch(apiurl+"/tracks/"+str(trackid), data=json.dumps(data), allow_redirects=False)
 	if trackresult.ok:
-		print(trackid + " => "+trackresult.headers.get("Track-Action"))
+		print(str(trackid) + " => "+trackresult.headers.get("Track-Action"))
 	else:
-		log("HTTP Status code "+str(trackresult.status_code)+" returned by API: " +  trackresult.text.rstrip() + " <" + trackid + ">", error=True)
+		log("HTTP Status code "+str(trackresult.status_code)+" returned by API: " +  trackresult.text.rstrip() + " <" + str(trackid) + ">", error=True)
