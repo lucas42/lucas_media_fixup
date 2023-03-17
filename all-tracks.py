@@ -7,8 +7,9 @@ print ("\033[0mChecking media library for tracks whose title matches the filenam
 
 # Iterate through every track in the media API and try updating its weighting
 for track in getAllTracks():
-	filename = track['url'].rpartition('/')[2]
-	filetitle = urllib.parse.unquote(filename).rpartition('.')[0]
+	trackpath = "/medlib/"+urllib.parse.unquote(track['url']).partition('/medlib/')[2]
+	filename = trackpath.rpartition('/')[2]
+	filetitle = filename.rpartition('.')[0]
 	if ('title' not in track['tags']):
 		track['tags']['title'] = None
 	apititle = track['tags']['title']
@@ -17,12 +18,11 @@ for track in getAllTracks():
 	if (apititle != filetitle):
 		continue
 
-	path = "/medlib/"+track['url'].partition('/medlib/')[2]
-	filemetadata = taglib.File(path)
+	filemetadata = taglib.File(trackpath)
 	id3title = " & ".join(filemetadata.tags['TITLE'])
 
 	## If the id3 title is empty or the same as the api title, then no need to do an update
 	if ((not id3title) or (id3title == apititle)):
 		continue
 
-	print(path + "=>" + apititle +  "~~~~~" + id3title)
+	print(trackpath + "=>" + apititle +  "~~~~~" + id3title)
