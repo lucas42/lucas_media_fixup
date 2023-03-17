@@ -6,6 +6,6 @@ RUN apt-get update && apt-get install -y pipenv libtag1-dev
 
 COPY Pipfile* ./
 RUN pipenv install
-COPY *.py .
+COPY *.py ./
 
 CMD [ "pipenv", "run", "python", "all-tracks.py"]
