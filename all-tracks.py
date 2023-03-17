@@ -39,4 +39,4 @@ for track in getAllTracks():
 			"title": id3title,
 		},
 	}
-	print("Track ID:"+str(track['trackid'])+" -> "+str(trackdata))
+	print("Track ID:"+str(track['trackid']) + "; " + apititle + " -> " + id3title)
